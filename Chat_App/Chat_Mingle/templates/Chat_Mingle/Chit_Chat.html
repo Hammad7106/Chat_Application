@@ -5,6 +5,18 @@
     <title>Chat</title>
 </head>
 <body>
-SUCCESSSSSSSSSSSSSSSSS
+    {% if user.is_authenticated %}
+
+    {% if user.userprofile.image %}
+        <img src="{{ user.userprofile.image.url }}" alt="{{ user.username }}'s Profile Image" width="50" height="50">
+        <p>Logged in as: {{ user.username }}</p>
+    {% else %}
+        <p>No profile image</p>
+    {% endif %}
+    <p> Online</p>
+{% else %}
+    <p>Not logged in</p>
+{% endif %}
+
 </body>
 </html>

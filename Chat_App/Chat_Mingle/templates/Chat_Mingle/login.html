@@ -18,6 +18,8 @@
                 <h2 class="text-center">Login</h2>
             </div>
             <div class="card-body">
+
+
                 <form method="post" action="{% url 'login' %}">
                     {% csrf_token %}
                     {{ login_form.as_p }}

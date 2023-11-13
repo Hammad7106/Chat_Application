@@ -46,27 +46,27 @@ def chit_chat(request):
 
 # LOGIN USER
 
+
+
 def login_view(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
         try:
+            form = LoginForm(request, request.POST)
             if form.is_valid():
-                username = form.cleaned_data['username']
-                password = form.cleaned_data['password']
-                user = authenticate(request, username=username, password=password)
+                # Authentication successful, log the user in
+                user = form.get_user()
+                login(request, user)
 
-                if user is not None:
-                    login(request, user)
-                    messages.success(request, f"Welcome, {username}! You have successfully logged in.")
-                    return redirect('base')  # Replace 'home' with your actual home page URL
-                else:
-                    raise forms.ValidationError("Invalid username or password.")
-        except forms.ValidationError as e:
-            messages.error(request, str(e))
+                # Add a success message
+                messages.success(request, f"Welcome, {user.username}! You have successfully logged in.")
+
+                # Redirect to a success page, e.g., dashboard
+                return redirect('chit_chat')
+        except Exception as e:
+            # Handle exceptions (e.g., form validation errors, authentication failures)
+            messages.error(request, f"Login failed: {str(e)}")
     else:
         form = LoginForm()
 
-    return render(request, 'Chat_Mingle/login.html', {'login_form': form})
-
-
+    return render(request, 'Chat_Mingle/login.html', {'login_form':form})
 
