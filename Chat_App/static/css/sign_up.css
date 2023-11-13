@@ -1,0 +1,31 @@
+   /* Add your custom styles here */
+        body {
+            background-color: #2980b9; /* Set a light background color */
+        }
+
+        .signup-container {
+            max-width: 400px;
+            margin: auto;
+            margin-top: 50px;
+            background-color: #fff; /* Set the background color to white */
+            padding: 20px;
+            border-radius: 8px; /* Add rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+        }
+
+        .signup-container h2 {
+            color: #007bff; /* Set the heading color */
+        }
+
+        .form-group {
+            margin-bottom: 20px; /* Add some spacing between form groups */
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Set the button color */
+            border: none; /* Remove button border */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Change button color on hover */
+        }

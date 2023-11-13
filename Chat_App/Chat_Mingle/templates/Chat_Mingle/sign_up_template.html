@@ -1,18 +1,53 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Sign Up User</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/sign_up.css' %}">
+    <!-- Optional: Add your custom styles here -->
+    <style>
+    </style>
 </head>
 <body>
-<div class="signup-container">
-        <h2>Sign Up</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ sign_up_form.as_p }}
-        {{user_profile_form.as_p}}
-    <button type="submit">Register</button>
-</form>
+    <div class="signup-container">
+        <h2 class="text-center">Sign Up</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Use Bootstrap form classes -->
+            <div class="form-group">
+                {{ sign_up_form.username.label_tag }}
+                {{ sign_up_form.username }}
+            </div>
+            <div class="form-group">
+                {{ sign_up_form.first_name.label_tag }}
+                {{ sign_up_form.first_name }}
+            </div>
+            <div class="form-group">
+                {{ sign_up_form.last_name.label_tag }}
+                {{ sign_up_form.last_name }}
+            </div>
+            <div class="form-group">
+                {{ sign_up_form.password1.label_tag }}
+                {{ sign_up_form.password1 }}
+            </div>
+            <div class="form-group">
+                {{ sign_up_form.password2.label_tag }}
+                {{ sign_up_form.password2 }}
+            </div>
+            <div class="form-group">
+                {{ user_profile_form.image.label_tag }}
+                {{ user_profile_form.image }}
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
     </div>
+
+    <!-- Add Bootstrap JS and Popper.js (if needed) scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
