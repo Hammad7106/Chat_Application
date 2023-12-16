@@ -35,6 +35,7 @@ AUTHENTICATION_BACKENDS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -72,7 +73,17 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Chat_App.wsgi.application'
+# WSGI_APPLICATION = 'Chat_App.wsgi.application'
+ASGI_APPLICATION = "Chat_App.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            # "hosts": [("127.0.0.1", 6379)],
+            "hosts":[("redis://:2UokxOkdE0wlmZES2ewDI5LnolnCVZoo@redis-19806.c321.us-east-1-2.ec2.cloud.redislabs.com:19806")],
+        },
+    },
+}
 
 
 # Database

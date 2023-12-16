@@ -70,3 +70,9 @@ def login_view(request):
 
     return render(request, 'Chat_Mingle/login.html', {'login_form':form})
 
+
+def rooms_list(request):
+    return render(request,"Chat_Mingle/index.html")
+
+def room(request, room_name):
+    return render(request, "Chat_Mingle/room.html", {"room_name": room_name})
