@@ -8,21 +8,52 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4; /* Set a background color for the body */
         }
 
+
         .welcome-container {
+            background-color: #3498db; /* Set a background color for the container */
+            color: #fff; /* Set text color to white */
             text-align: center;
+            padding: 50px;
         }
 
         .app-title {
             font-size: 2.5em;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .app-description {
             font-size: 1.2em;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
+
+        .nav-item {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.2em;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-link:hover {
+            background-color: #2980b9; /* Change background color on hover */
+        }
+
+        .active {
+            background-color: #2980b9; /* Set a different color for the active link */
+        }
+
 
         .start-button {
             padding: 10px 20px;

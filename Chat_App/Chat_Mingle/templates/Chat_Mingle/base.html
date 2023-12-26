@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,19 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <title>Chat App - Welcome</title>
-    <!-- Add your professional background image or color -->
     <style>
 
     </style>
+    <title>Chat App - Welcome</title>
 </head>
 <body>
 
 <div class="welcome-container">
-
     <h1 class="app-title">Welcome to Chat Mingle</h1>
     <p class="app-description">Connect with others in real-time. Start chatting now!</p>
-<!--    -->
+    {% if user.is_authenticated %}
+        <div class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </div>
+    {% else %}
+        <div class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'sign_up' %}">SignUp</a>
+        </div>
+    {% endif %}
 </div>
 
 </body>

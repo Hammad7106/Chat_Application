@@ -5,12 +5,11 @@ from .login_form import LoginForm
 from django import forms
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
-
-
+from .models import Group,Chat
 def base(request):
     return render(request,'Chat_Mingle/base.html')
 
@@ -72,7 +71,19 @@ def login_view(request):
 
 
 def rooms_list(request):
-    return render(request,"Chat_Mingle/index.html")
+    return render(request,"Chat_Mingle/enter_room.html")
 
 def room(request, room_name):
-    return render(request, "Chat_Mingle/room.html", {"room_name": room_name})
+    group=Group.objects.filter(name=room_name).first()
+    chats = []
+    if group:
+        chats=Chat.objects.filter(group=group)
+    else:
+        group=Group(name=room_name)
+        group.save()
+    return render(request, "Chat_Mingle/room.html", {"room_name": room_name,"chats":chats})
+
+def user_logout(reqeust):
+    logout(reqeust)
+
+    return redirect('base')
