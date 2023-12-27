@@ -16,3 +16,7 @@ For Real Time Data Communication I have used Redis labs
 Database is sqllite for storing message content of users.
 I have used AsyncWebConsumers in Web Sockets.So, the flow of messages is asynchronous.
 
+
+FUTURE GOALS
+
+This is a basic real time chat application with in django. I will add further functionalities in it to make it better.
