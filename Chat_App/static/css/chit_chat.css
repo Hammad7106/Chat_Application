@@ -1,0 +1,50 @@
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .welcome-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .user-info {
+            margin-bottom: 20px;
+        }
+
+        .user-image {
+            border-radius: 50%;
+            max-width: 100px;
+            height: auto;
+            border: 2px solid #25d366; /* WhatsApp green color */
+        }
+
+        .group-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .group-list-item {
+            margin-bottom: 10px;
+        }
+
+        .group-list-item a {
+            display: block;
+            padding: 10px;
+            text-align: left;
+            background-color: #25d366; /* WhatsApp green color */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .group-list-item a:hover {
+            background-color: #128C7E; /* Darker shade of green on hover */
+        }

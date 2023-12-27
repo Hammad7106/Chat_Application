@@ -1,7 +1,7 @@
 import json
 
 
-from channels.generic.websocket import AsyncWebsocketConsumer, async_to_sync
+from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from .models import Group, Chat, UserProfile
 
@@ -26,23 +26,35 @@ class ChatConsumer(AsyncWebsocketConsumer):
         print(f"WebSocket disconnected for room: {self.room_name}, close_code: {close_code}")
 
     # Receive message from WebSocket
+    @database_sync_to_async
+    def save_chat_message(self, message, group, user_profile):
+        chat = Chat(
+            content=message,
+            group=group,
+            user=user_profile
+        )
+        chat.save()
+
+    @database_sync_to_async
+    def get_group(self):
+        return Group.objects.get(name=self.room_name)
+
+    @database_sync_to_async
+    def get_or_create_user_profile(self):
+        user = self.scope["user"]
+        return UserProfile.objects.get_or_create(user=user)
+
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
 
         print(f"Received message from user {self.scope['user']} in group {self.room_group_name}: {message}")
 
-        group = await database_sync_to_async(Group.objects.get)(name=self.room_name)
-        user = self.scope["user"]
-        user_profile, _ = await database_sync_to_async(UserProfile.objects.get_or_create)(user=user)
-        print(f"UserProfile for user {user}: {user_profile}")
+        group = await self.get_group()
+        user_profile, _ = await self.get_or_create_user_profile()
 
-        chat = Chat(
-            content=message,
-            group=group,
-            user=user_profile
-        )
-        await database_sync_to_async(chat.save)()
+
+        await self.save_chat_message(message, group, user_profile)
 
         # Send message to room group
         await self.channel_layer.group_send(

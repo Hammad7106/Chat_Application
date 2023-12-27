@@ -2,14 +2,11 @@ from django.shortcuts import render
 from .sign_up_form import SignUpForm
 from .user_profile_form import UserProfileForm
 from .login_form import LoginForm
-from django import forms
-from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.decorators import login_required
-from django.db import transaction
 from django.contrib import messages
-from .models import Group,Chat
+from .models import Group,Chat,UserProfile
 def base(request):
     return render(request,'Chat_Mingle/base.html')
 
@@ -39,14 +36,18 @@ def sign_up(request):
 
 
 
-def chit_chat(request):
-    return render(request,'Chat_Mingle/Chit_Chat.html')
+''' This function is basically the profile of user where username, image and all the groups will be shown
+ where the user is added'''
+def user_profile(request):
+    if request.user.is_authenticated:
+        user_profile = UserProfile.objects.get(user=request.user)
+        unique_groups = set(chat.group.name for chat in user_profile.chat_set.all())
+        return render(request, 'Chat_Mingle/chit_chat.html', {'user': request.user, 'user_profile': user_profile, 'unique_groups': unique_groups})
+    else:
+        return render(request, 'Chat_Mingle/chit_chat.html', {'user': None})
 
 
 # LOGIN USER
-
-
-
 def login_view(request):
     if request.method == 'POST':
         try:
@@ -70,9 +71,12 @@ def login_view(request):
     return render(request, 'Chat_Mingle/login.html', {'login_form':form})
 
 
-def rooms_list(request):
+#This view function is for Entering in a Group for Real Time Chat
+def enter_room(request):
     return render(request,"Chat_Mingle/enter_room.html")
 
+
+#This function will show all the previous chats in a chatbox
 def room(request, room_name):
     group=Group.objects.filter(name=room_name).first()
     chats = []
